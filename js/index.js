@@ -1,3 +1,6 @@
+import { MemoryGame } from './memory.js'
+
+
 const cards = [
   { name: 'aquaman', img: 'aquaman.jpg' },
   { name: 'batman', img: 'batman.jpg' },
@@ -43,9 +46,27 @@ window.addEventListener('load', (event) => {
 
   // Bind the click event of each element to a function
   document.querySelectorAll('.card').forEach((card) => {
-    card.addEventListener('click', () => {
-      // TODO: write some code here
-      console.log(`Card clicked: ${card}`);
-    });
+    card.addEventListener( 'click', (e) => {
+      memoryGame.pickedCards.push(card);
+      let card1 = Object.values(memoryGame.pickedCards[0].attributes)[1].value;
+      let card2 = Object.values(memoryGame.pickedCards[1].attributes)[1].value;
+      if (memoryGame.checkIfPair(card1,card2)=== true) {
+        memoryGame.pickedCards[0].classList.add('turned');
+        memoryGame.pickedCards[1].classList.add('turned');
+        memoryGame.pickedCards = [];
+        if (memoryGame.pairsGuessed === 12) {
+          alert('You won!!!')
+        }
+      }
+      else {
+        memoryGame.pickedCards[0].classList.add('turned');
+        memoryGame.pickedCards[1].classList.add('turned');
+        setTimeout(() => {
+          memoryGame.pickedCards[0].classList.remove('turned');
+          memoryGame.pickedCards[1].classList.remove('turned');
+          memoryGame.pickedCards = [];
+      },1000);   
+      }
   });
+});
 });
