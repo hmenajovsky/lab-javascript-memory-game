@@ -1,4 +1,4 @@
-import { MemoryGame } from './memory.js'
+ import { MemoryGame } from './memory.js'
 
 
 const cards = [
@@ -30,6 +30,8 @@ const cards = [
 
 const memoryGame = new MemoryGame(cards);
 
+memoryGame.cards = memoryGame.shuffleCards();
+
 window.addEventListener('load', (event) => {
   let html = '';
   memoryGame.cards.forEach((pic) => {
@@ -54,7 +56,7 @@ window.addEventListener('load', (event) => {
         memoryGame.pickedCards[0].classList.add('turned');
         memoryGame.pickedCards[1].classList.add('turned');
         memoryGame.pickedCards = [];
-        if (memoryGame.pairsGuessed === 12) {
+        if (memoryGame.checkIfFinished()) {
           alert('You won!!!')
         }
       }
